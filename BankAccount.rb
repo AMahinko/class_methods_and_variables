@@ -23,10 +23,11 @@ class BankAccount
     end
   end
 
-  def self.create
+  def self.create(name)
     # puts "Input an account number:"
     # number = gets
-    @@accounts << BankAccount.new
+    name = BankAccount.new
+    @@accounts << name
   end
 
   def self.accounts
