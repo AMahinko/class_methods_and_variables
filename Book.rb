@@ -12,7 +12,7 @@ def initialize(title, author, isbn)
   @due_date = nil
 end
 
-attr_accessor :due_date
+attr_accessor :due_date, :borrowed
 attr_reader :title
 
 def self.debug_purge
@@ -56,9 +56,9 @@ def self.available
   return @@on_shelf
 end
 
-def self.borrowed
-  return @@loaned
-end
+# def self.borrowed
+#   return @@loaned
+# end
 
 def self.borrow(book)
   p "--------------"
@@ -68,17 +68,44 @@ def self.borrow(book)
   p "-------------"
   if book.available? == true
     @@loaned << book
-    @borrowed = true
+    book.due_date = book.current_due_date
     @@on_shelf.delete(book)
 
   else
     puts "#{book.title} is not available"
   end
+  book.borrowed = true
   p "--------------"
   p @@on_shelf
   p "==========="
   p @@loaned
   p "-------------"
+end
+
+def self.return(book)
+  p "--------------"
+  p @@on_shelf
+  p "==========="
+  p @@loaned
+  p "-------------"
+  if book.available? == false
+    @@on_shelf  << book
+    book.due_date = nil
+    @@loaned.delete(book)
+
+  else
+    puts "#{book.title} is not loaned"
+  end
+  book.borrowed = false
+  p "--------------"
+  p @@on_shelf
+  p "==========="
+  p @@loaned
+  p "-------------"
+end
+
+def current_due_date
+  Time.now + 60 * 60 * 24 * 7
 end
 
 
