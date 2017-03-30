@@ -8,7 +8,7 @@ class BankAccount
     # @number = number
   end
 
-  attr_accessor :balance, :number
+  attr_accessor :balance
 
   def deposit(amount)
     if amount > 0
@@ -23,11 +23,12 @@ class BankAccount
     end
   end
 
-  def self.create(name)
+  def self.create
     # puts "Input an account number:"
     # number = gets
     name = BankAccount.new
     @@accounts << name
+    return name
   end
 
   def self.accounts
@@ -36,6 +37,26 @@ class BankAccount
 
   def self.total
     return @@total_funds
+
+  end
+
+  def self.interest_time
+
+    @@accounts.each do |account|
+      p account
+      p account.balance
+      p @@interest_rate
+      interest = account.balance + account.balance * @@interest_rate
+      account.deposit(interest)
+    end
+
+    puts @@accounts
+
+  end
+
+  def self.mass
+
+    @@accounts.each {|account| account.deposit(200)}
 
   end
 
