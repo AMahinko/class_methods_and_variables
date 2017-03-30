@@ -105,7 +105,17 @@ def self.return(book)
 end
 
 def current_due_date
-  Time.now + 60 * 60 * 24 * 7
+  Time.now #+ 60 * 60 * 24 * 7
+end
+
+
+def self.overdue
+
+  @@loaned.each do |book|
+    if book.due_date < Time.now + 1
+      Book.return(book)
+    end
+  end
 end
 
 
