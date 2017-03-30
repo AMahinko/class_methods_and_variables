@@ -16,7 +16,22 @@ attr_accessor :due_date
 attr_reader :title
 
 def self.debug_purge
-  @@on_shelf.each {||}
+  @@on_shelf.each {|item| @@on_shelf.delete(item)}
+  @@loaned.each {|item| @@loaned.delete(item)}
+  puts @@on_shelf
+  puts @@loaned
+end
+
+def self.debug_show
+  puts @@on_shelf
+  puts "---------------------------------------------------------------*"
+  puts @@loaned
+end
+
+def self.shelf(var)
+
+  @@on_shelf << var
+
 end
 
 def self.create
@@ -37,28 +52,33 @@ def available?
   return false if @borrowed == true
 end
 
-def available
+def self.available
   return @@on_shelf
 end
 
-def
-
-def borrowed
+def self.borrowed
   return @@loaned
 end
 
 def self.borrow(book)
+  p "--------------"
   p @@on_shelf
+  p "==========="
   p @@loaned
-  p "------"
+  p "-------------"
   if book.available? == true
     @@loaned << book
+    @borrowed = true
     @@on_shelf.delete(book)
+
   else
     puts "#{book.title} is not available"
   end
+  p "--------------"
   p @@on_shelf
+  p "==========="
   p @@loaned
+  p "-------------"
 end
 
 
