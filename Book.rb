@@ -118,5 +118,8 @@ def self.overdue
   end
 end
 
+def self.browse
+  @@on_shelf.sample
+end
 
 end
