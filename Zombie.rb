@@ -25,19 +25,25 @@ def self.show_horde
 end
 
 def self.spawn
-  rspeed = rand(5)
-  puts = rspeed
-  rstrength = rand(8)
-  puts = rstrength
-  riterations = rand(1..3)
+  riterations = rand(4..9)
+  horde_buffer = []
   puts "Iterating #{riterations} times."
-  riterations.times do
-    @@horde << Zombie.new(rspeed, rstrength)
-    puts "A zombie with #{rspeed} and #{rstrength} risies!"
+    riterations.times do
+    rspeed = rand(1..5)
+    rstrength = rand(1..8)
+    puts = rstrength
+    puts = rspeed
+    horde_buffer << Zombie.new(rspeed, rstrength)
   end
+  @@horde << horde_buffer
 end
 
 
 
 
 end
+
+a = rand(1..5)
+puts a
+b = rand(1..5)
+puts b
