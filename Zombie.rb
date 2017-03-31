@@ -25,7 +25,7 @@ def self.all
 end
 
 def self.spawn
-  riterations = rand(4..9)
+  riterations = rand(4..5)
   horde_buffer = []
   puts "Iterating #{riterations} times."
     riterations.times do
@@ -36,6 +36,11 @@ def self.spawn
     horde_buffer << Zombie.new(rspeed, rstrength)
   end
   @@horde << horde_buffer
+end
+
+def self.increase_plague
+  plague_increase = rand(0..2)
+
 end
 
 
