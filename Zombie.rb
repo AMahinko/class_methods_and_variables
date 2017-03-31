@@ -20,7 +20,7 @@ def initialize(speed, strength)
   end
 end
 
-def self.show_horde
+def self.all
   puts @@horde
 end
 
