@@ -24,8 +24,12 @@ def self.all
   puts @@horde
 end
 
+def self.level
+  return plague_level
+end
+
 def self.spawn
-  riterations = rand(4..5)
+  riterations = rand(1..@@plague_level)
   horde_buffer = []
   puts "Iterating #{riterations} times."
     riterations.times do
@@ -40,10 +44,21 @@ end
 
 def self.increase_plague
   plague_increase = rand(0..2)
+  @@plague_level += plague_increase
 
 end
 
+def self.prune                                         #<<< Kills a random number of randomly selected zombies
 
+  @@horde.shuffle!
+  kill_number = rand(1..10)
+  horde_number = @@horde.length
+  kill_number.times do
+    kill_index = rand(0..horde_number -1)
+    kill_target = @@horde[kill_index]
+    @@horde.delete(kill_target)
+  end
+end
 
 
 end
