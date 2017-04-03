@@ -24,6 +24,14 @@ def self.all
   puts @@horde
 end
 
+def get_speed
+   return @speed
+end
+
+def get_strength
+  return @strength
+end
+
 def self.level
   return plague_level
 end
@@ -54,9 +62,33 @@ def self.prune                                         #<<< Kills a random numbe
   kill_number = rand(1..10)
   horde_number = @@horde.length
   kill_number.times do
-    kill_index = rand(0..horde_number -1)
+    kill_index = rand(0..horde_number - 1)
     kill_target = @@horde[kill_index]
     @@horde.delete(kill_target)
+  end
+end
+
+def outrun_zombie?
+  playerspeed = rand(1..@@max_speed)
+  horde_number = @@horde.length
+  zselector = rand(0..horde_number - 1)
+  enemy = @@horde[zselector].get_strength
+  if playerspeed >= enemy
+    return true
+  else
+    return false
+  end
+end
+
+def survive_attack?
+  playerstrength = rand(1..@@max_speed)
+  horde_number = @@horde.length
+  zselector = rand(0..horde_number - 1)
+  enemy = @@horde[zselector].get_strength
+  if playerstrength > enemy
+    return true
+  else
+    return false
   end
 end
 
