@@ -21,7 +21,7 @@ def initialize(speed, strength)
 end
 
 def self.all
-  puts @@horde
+  return @@horde
 end
 
 def get_speed
@@ -36,18 +36,22 @@ def self.level
   return plague_level
 end
 
+
+
 def self.spawn
   riterations = rand(1..@@plague_level)
   horde_buffer = []
-  puts "Iterating #{riterations} times."
     riterations.times do
     rspeed = rand(1..5)
     rstrength = rand(1..8)
     puts = rstrength
     puts = rspeed
     horde_buffer << Zombie.new(rspeed, rstrength)
+    puts horde_buffer
   end
-  @@horde << horde_buffer
+  horde_buffer.each do |item|
+    @@horde << item
+  end
 end
 
 def self.increase_plague
@@ -70,10 +74,7 @@ end
 
 def outrun_zombie?
   playerspeed = rand(1..@@max_speed)
-  horde_number = @@horde.length
-  zselector = rand(0..horde_number - 1)
-  enemy = @@horde[zselector].get_strength
-  if playerspeed >= enemy
+  if playerspeed >= @speed
     return true
   else
     return false
@@ -81,14 +82,28 @@ def outrun_zombie?
 end
 
 def survive_attack?
-  playerstrength = rand(1..@@max_speed)
-  horde_number = @@horde.length
-  zselector = rand(0..horde_number - 1)
-  enemy = @@horde[zselector].get_strength
-  if playerstrength > enemy
+  playerstrength = rand(1..@@max_strength)
+  # enemy = @strengh
+  if playerstrength > @strength
     return true
   else
     return false
+  end
+end
+
+def encounter
+  if outrun_zombie? == true
+    puts "Not today."
+  elsif outrun_zombie? == false
+    if survive_attack? == true
+      puts "You are a zombie."
+      rspeed = rand(1..5)
+      rstrength = rand(1..8)
+      @@horde << Zombie.new(rspeed, rstrength)
+    elsif survive_attack? == false
+      puts "You and your friends are dead."
+      puts "GAME OVER."
+    end
   end
 end
 
